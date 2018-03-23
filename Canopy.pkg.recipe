@@ -18,7 +18,7 @@
 	<key>MinimumVersion</key>
 	<string>1.0.0</string>
 	<key>ParentRecipe</key>
-	<string>edu.ncsu.oit.download.Canopy</string>
+	<string>com.github.hansen-m.download.CanopyExpress</string>
 	<key>Process</key>
 	<array>
 		<dict>
