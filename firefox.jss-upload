@@ -12,7 +12,7 @@ Credit to the original creators of the firefox.jss recipe, Homebysix and Novaksa
 		<key>CATEGORY</key>
 		<string>Productivity</string>
 		<key>NAME</key>
-		<string>UNCWide-AutoPkg-Firefox</string>
+		<string>Firefox</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.4.0</string>
