@@ -3,21 +3,20 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads Firefox disk image and builds a package, then uploads to the JSS.
-Credit to the original creators of the firefox.jss recipe, Homebysix and Novaksam</string>
+	<string>Packages Casper Suite from the local Mac, and uploads it to the JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.everetteallen.ega-recipes.jss-upload.Firefox</string>
+	<string>com.github.jss-recipes.jss.CasperSuite</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>
-		<string>Productivity</string>
+		<string>Management</string>
 		<key>NAME</key>
-		<string>Firefox</string>
+		<string>JAMF Suite</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.4.0</string>
 	<key>ParentRecipe</key>
-	<string>com.github.autopkg.pkg.Firefox_EN</string>
+	<string>com.github.novaksam.pkg.CasperSuite</string>
 	<key>Process</key>
 	<array>
 		<dict>
