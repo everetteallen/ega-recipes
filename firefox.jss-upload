@@ -2,23 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Comment</key>
-	<string>Created with Recipe Robot v1.0.5 (https://github.com/homebysix/recipe-robot)</string>
 	<key>Description</key>
-	<string>Downloads the latest version of Canopy and imports it into your JSS.</string>
+	<string>Downloads Firefox disk image and builds a package, then uploads to the JSS.
+Credit to the original creators of the firefox.jss recipe, Homebysix and Novaksam</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.Canopy</string>
+	<string>com.github.dazwallace.demo.jss-upload.Firefox</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>
 		<string>Productivity</string>
 		<key>NAME</key>
-		<string>Canopy</string>
+		<string>Firefox</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>1.0.0</string>
+	<string>0.4.0</string>
 	<key>ParentRecipe</key>
-	<string>edu.ncsu.oit.pkg.Canopy</string>
+	<string>com.github.autopkg.pkg.Firefox_EN</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -26,7 +25,6 @@
 			<dict>
 				<key>category</key>
 				<string>%CATEGORY%</string>
-				</array>
 				<key>prod_name</key>
 				<string>%NAME%</string>
 			</dict>
