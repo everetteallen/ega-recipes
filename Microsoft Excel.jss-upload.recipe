@@ -20,6 +20,7 @@
 		<key>CATEGORY</key>
 		<string>Productivity</string>
 		<key>NAME</key>
+		<string>Microsoft Excel</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.4.2</string>
