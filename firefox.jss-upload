@@ -26,7 +26,7 @@ Credit to the original creators of the firefox.jss recipe, Homebysix and Novaksa
 				<key>category</key>
 				<string>%CATEGORY%</string>
 				<key>prod_name</key>
-				<string>%NAME%</string>
+				<string>UNCWide-AutoPkg-%NAME%</string>
 			</dict>
 			<key>Processor</key>
 			<string>JSSImporter</string>
