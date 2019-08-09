@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Downloads latest Suspicious Package installer, unpacks it, and re-labels the installer. Then, uploads to the JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.SuspiciousPackage</string>
+	<string>com.github.everetteallen.jss.SuspiciousPackage</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>

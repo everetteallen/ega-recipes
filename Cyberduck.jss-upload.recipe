@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Downloads the current release version of Cyberduck and builds a package. Then, uploads to the JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.Cyberduck</string>
+	<string>com.github.everetteallen.jss.Cyberduck</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>

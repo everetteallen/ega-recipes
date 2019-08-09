@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Packages Casper Suite from the local Mac, and uploads it to the JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.CasperSuite</string>
+	<string>com.github.everetteallen.jss.CasperSuite</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>

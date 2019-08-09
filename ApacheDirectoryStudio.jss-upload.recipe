@@ -7,7 +7,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of Apache Directory Studio and imports it into your JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.ApacheDirectoryStudio</string>
+	<string>com.github.everetteallen.jss.ApacheDirectoryStudio</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>

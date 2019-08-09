@@ -7,7 +7,7 @@
 
 NOTE: Because Audacity cannot be automatically downloaded due to Fosshub's TOS, a PKG variable must be provided that points to the path of a locally downloaded Audacity dmg. We recommend creating a recipe override that provides this PKG variable.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.Audacity</string>
+	<string>com.github.everetteallen.jss.Audacity</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>

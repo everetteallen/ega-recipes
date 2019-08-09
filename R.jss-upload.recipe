@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Checks for updates for R for Mac OS X (also known as "The R Project for Statistical Computing"), packages, and adds to the JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.R</string>
+	<string>com.github.everetteallen.jss.R</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>

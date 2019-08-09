@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of BBEdit and makes a pkg of it then uploads it to the JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.BBEdit</string>
+	<string>com.github.everetteallen.jss.BBEdit</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>

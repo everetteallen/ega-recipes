@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Downloads Microsoft Lync installer and extracts the embedded package, uploads to JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.MicrosoftLync</string>
+	<string>com.github.everetteallen.jss.MicrosoftLync</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>

@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Downloads the latest version of Github Desktop and builds a pkg. Then, uploads to the JSS.</string>
 	<key>Identifier</key>
-	<string>com.github.jss-recipes.jss.GitHubDesktop</string>
+	<string>com.github.everetteallen.jss.GitHubDesktop</string>
 	<key>Input</key>
 	<dict>
 		<key>CATEGORY</key>
