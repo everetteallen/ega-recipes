@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+    <dict>
+        <key>Description</key>
+        <string>Downloads the latest version of OpenJDK 13, builds an installer package, then uploads to the JSS.</string>
+        <key>Identifier</key>
+        <string>com.github.everetteallen.jss.OpenJDK13</string>
+        <key>Input</key>
+        <dict>
+            <key>NAME</key>
+            <string>OpenJDK 13</string>
+            <key>CATEGORY</key>
+            <string>Apps</string>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>1.0.0</string>
+        <key>ParentRecipe</key>
+        <string>com.github.rtrouton.pkg.OpenJDK13</string>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Arguments</key>
+                <dict>
+                    <key>prod_name</key>
+                    <string>%NAME%</string>
+                    <key>jss_inventory_name</key>
+                    <string>%NAME%</string>
+                    <key>category</key>
+                    <string>%CATEGORY%</string>
+                </dict>
+                <key>Processor</key>
+                <string>JSSImporter</string>
+            </dict>
+        </array>
+    </dict>
+</plist>
