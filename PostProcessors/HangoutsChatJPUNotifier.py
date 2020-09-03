@@ -71,7 +71,7 @@ class HangoutsChatJPUNotifier(Processor):
 
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
-        hangoutschatjpuwebhook_url = self.env.get("hangoutschatjpu_webhook_url")
+        webhook_url = self.env.get("hangoutschatjpu_webhook_url")
         
         # JPU Summary
         try:
