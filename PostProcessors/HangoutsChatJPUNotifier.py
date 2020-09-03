@@ -71,7 +71,7 @@ class HangoutsChatJPUNotifier(Processor):
 
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
-        webhook_url = self.env.get("hangoutschatjpu_webhook_url")
+        hangoutschatjpuwebhook_url = self.env.get("hangoutschatjpu_webhook_url")
         
         # JPU Summary
         try:
@@ -99,7 +99,7 @@ class HangoutsChatJPUNotifier(Processor):
         except:
             ratio = "Not Checked"
 
-        print("Information from Summary: ")
+        print("****HangoutsChatJPU Information Summary: ")
         print("JSS address: %s" % JSS_URL)
         print("Package: %s" % pkg_name)
         print("Path: %s" % pkg_path)
@@ -132,7 +132,7 @@ class HangoutsChatJPUNotifier(Processor):
                                 },
                                 {
                                     "keyValue": {
-                                        "topLabel": "Category",
+                                        "topLabel": "Package Category",
                                         "content": category
                                     }
                                 },
