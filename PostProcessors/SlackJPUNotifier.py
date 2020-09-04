@@ -44,6 +44,7 @@ class SlackJPUNotifier(Processor):
             "description": ("Description of interesting results."),
         },
         "slackjpu_webhook_url": {"required": False, "description": ("Slack webhook.")},
+        "slackjpu_always_report" : {"required": False, "description": ("Should report or not")
     }
     output_variables = {}
 
@@ -52,6 +53,10 @@ class SlackJPUNotifier(Processor):
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("slackjpu_webhook_url")
+        try:
+        should_report = self.env.get("slackjpu_should_report")
+        except:
+            should_report = False
         #replace pkg_date latter with information from jamfpackageuploader  EGA"
         #now = datetime.now()
         #pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
@@ -109,7 +114,7 @@ class SlackJPUNotifier(Processor):
 
         slack_data = {"text": slack_text}
         
-        if not ("Unchanged" in pkg_status):
+        if not ("Unchanged" in pkg_status) and should_report:
 
             response = requests.post(webhook_url, json=slack_data)
             if response.status_code != 200:
