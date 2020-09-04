@@ -384,6 +384,7 @@ class JamfPackageUploader(Processor):
 
         #  now process the package metadata if specified
         # add Comment and description from PatchBot/jcpimporter
+        # need to add info - we will add version and  notes - used by jcpimporter for timestamp fields to record
         if self.category or self.smb_url:
             try:
                 pkg_id
