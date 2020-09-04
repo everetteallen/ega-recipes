@@ -313,14 +313,14 @@ class JamfPackageUploader(Processor):
             pkg_name += ".zip"
 
         # put prefix code here
-       """
+"""
         if jpuPrefix:
             dn = os.path.dirname(self.pkg_path)
             rename_path = f"{dn}/{jpuPrefix}{pkg_name}"
             os.rename (f"{self.pkg_path}", f"{rename_path}")
             self.pkg_path = rename_path
             pkg_name = os.path.basename(self.pkg_path)
-        """
+"""
         # now start the process of uploading the package
         self.output(f"Checking '{pkg_name}' on {self.jamf_url}")
 
