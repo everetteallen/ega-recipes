@@ -297,6 +297,7 @@ class JamfPackageUploader(Processor):
         self.smb_user = self.env.get("SMB_USERNAME")
         self.smb_password = self.env.get("SMB_PASSWORD")
         pkg_status = "Unchanged"
+        jpuPrefix = self.env.get("jpuPrefix")
         # clear any pre-existing summary result
         if "jamfpackageuploader_summary_result" in self.env:
             del self.env["jamfpackageuploader_summary_result"]
