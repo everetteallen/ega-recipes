@@ -339,7 +339,7 @@ class JamfPackageUploader(Processor):
                 if r.status_code == 200 or r.status_code == 201:
                     pkg_id = ElementTree.fromstring(r.text).findtext("id")
                     self.output(f"Package uploaded to successfully, ID={pkg_id}")
-                    pkg_status = (f"Package Package uploaded successfully, ID={pkg_id}")
+                    pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
                     #  now process the package metadata if specified
                 else:
                     self.output(
