@@ -88,13 +88,12 @@ class SlackJPUNotifier(Processor):
                 
         slack_text = (
             f"*{JPUTitle}*\n"
-            "URL: *{JSS_URL}*\n"
-            "Title: *{JPUIcon}* *{pkg_name}*\n"
+            "URL: {JSS_URL}\n"
+            "Title: *{pkg_name}*\n"
             "Version: *{version}*\n"
             "Package Category: *{category}*\n"
-            "Virus Total Result: *{ratio}*"
-            )
-
+            "Virus Total Result: *{category}*\n"
+        )
 
         slack_data = {"text": slack_text}
 
