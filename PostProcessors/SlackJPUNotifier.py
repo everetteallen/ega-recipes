@@ -53,8 +53,8 @@ class SlackJPUNotifier(Processor):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("slackjpu_webhook_url")
         #replace pkg_date latter with information from jamfpackageuploader  EGA"
-        now = datetime.now()
-        pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+        #now = datetime.now()
+        #pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
         
         # JPU Summary
         # NOTE getting package status based on Virus Total run with VIRUSTOTAL_ALWAYS_REPORT set false is unreliable
@@ -65,14 +65,14 @@ class SlackJPUNotifier(Processor):
             category = jamfpackageuploader_summary_result["data"]["category"]
             pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
-            # pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
-            pkg_status = "New"
-            # pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
+            pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
+            #pkg_status = "New"
+            pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
             JPUTitle = "New Item Upload Attempt to JSS"
-            JPUIcon = ":star:"
-        
+            JPUIcon = ":star:"  
 
         except:
+            pkg_status = "Unchanged"
             version = "unknown"
             category = "unknown"
             pkg_name = "unknown"
@@ -91,7 +91,7 @@ class SlackJPUNotifier(Processor):
             permalink = virus_total_analyzer_summary_result["data"]["permalink"]
         except:
             ratio = "Not Checked"
-            pkg_status = "No Change"
+            #pkg_status = "Unchange"
         
         # output so we can have sanity check
         print("********SlackJPU Information Summary: ")
@@ -108,13 +108,15 @@ class SlackJPUNotifier(Processor):
         )
 
         slack_data = {"text": slack_text}
+        
+        if not ("Unchanged" in pkg_status):
 
-        response = requests.post(webhook_url, json=slack_data)
-        if response.status_code != 200:
-            raise ValueError(
-                f"Request to slack returned an error {response.status_code}, "
-                "the response is:\n{response.text}"
-            )
+            response = requests.post(webhook_url, json=slack_data)
+            if response.status_code != 200:
+                raise ValueError(
+                    f"Request to slack returned an error {response.status_code}, "
+                    "the response is:\n{response.text}"
+                )
 
 
 if __name__ == "__main__":
