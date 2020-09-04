@@ -383,6 +383,7 @@ class JamfPackageUploader(Processor):
                         )
 
         #  now process the package metadata if specified
+        # add Comment and description from PatchBot
         if self.category or self.smb_url:
             try:
                 pkg_id
