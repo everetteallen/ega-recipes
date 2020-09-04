@@ -179,13 +179,13 @@ class HangoutsChatJPUNotifier(Processor):
         }
 
 
-        f not ("Unchanged" in pkg_status) or should_report:
-        response = requests.post(webhook_url, json=hangoutschat_data)
-        if response.status_code != 200:
-            raise ValueError(
-                            'Request to Hangouts Chat returned an error %s, the response is:\n%s'
-                            % (response.status_code, response.text)
-                            )
+        if not ("Unchanged" in pkg_status) or should_report:
+            response = requests.post(webhook_url, json=hangoutschat_data)
+            if response.status_code != 200:
+                raise ValueError(
+                                'Request to Hangouts Chat returned an error %s, the response is:\n%s'
+                                % (response.status_code, response.text)
+                                )
 
 
 if __name__ == "__main__":
