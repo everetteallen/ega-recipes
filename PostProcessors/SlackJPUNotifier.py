@@ -114,7 +114,8 @@ class SlackJPUNotifier(Processor):
 
         slack_data = {"text": slack_text}
         
-        if not ("Unchanged" in pkg_status) and should_report:
+        # Only report if there are changes to the package or if slackjpu_should_report is set to true
+        if not ("Unchanged" in pkg_status) or should_report:
 
             response = requests.post(webhook_url, json=slack_data)
             if response.status_code != 200:
