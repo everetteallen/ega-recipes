@@ -112,7 +112,6 @@ class HangoutsChatJPUNotifier(Processor):
             permalink = virus_total_analyzer_summary_result["data"]["permalink"]
         except:
             ratio = "Not Checked"
-            pkg_status = "No Change"
 
         print("****HangoutsChatJPU Information Summary: ")
         print("JSS address: %s" % JSS_URL)
