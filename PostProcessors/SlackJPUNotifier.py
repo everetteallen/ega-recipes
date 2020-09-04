@@ -57,6 +57,8 @@ class SlackJPUNotifier(Processor):
         pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
         
         # JPU Summary
+        # NOTE getting package status based on Virus Total run with VIRUSTOTAL_ALWAYS_REPORT set false is unreliable
+        # Need to be able to get from jamfpackageuploader_summary_result in future. EGA
         try:
             jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
             version = jamfpackageuploader_summary_result["data"]["version"]
@@ -64,7 +66,7 @@ class SlackJPUNotifier(Processor):
             pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
             # pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
-            pkg_status = "New Package Available"
+            pkg_status = "New"
             # pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
             JPUTitle = "New Item Upload Attempt to JSS"
             JPUIcon = ":star:"
@@ -89,7 +91,7 @@ class SlackJPUNotifier(Processor):
             permalink = virus_total_analyzer_summary_result["data"]["permalink"]
         except:
             ratio = "Not Checked"
-            pkg_status = "No new package"
+            pkg_status = "No Change"
         
         # output so we can have sanity check
         print("********SlackJPU Information Summary: ")
