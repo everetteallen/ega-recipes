@@ -92,6 +92,12 @@ class JamfPackageUploader(Processor):
             "the com.github.autopkg preference file.",
             "default": "",
         },
+        "jpuPrefix": {
+            "required": False,
+            "description": "Optional string to prepend to package before upload"
+            "can be in preferences or passed from environment",
+            "default": "",
+        },
     }
 
     output_variables = {
@@ -306,6 +312,15 @@ class JamfPackageUploader(Processor):
             self.pkg_path = self.zip_pkg_path(self.pkg_path)
             pkg_name += ".zip"
 
+        # put prefix code here
+       """
+        if jpuPrefix:
+            dn = os.path.dirname(self.pkg_path)
+            rename_path = f"{dn}/{jpuPrefix}{pkg_name}"
+            os.rename (f"{self.pkg_path}", f"{rename_path}")
+            self.pkg_path = rename_path
+            pkg_name = os.path.basename(self.pkg_path)
+        """
         # now start the process of uploading the package
         self.output(f"Checking '{pkg_name}' on {self.jamf_url}")
 
