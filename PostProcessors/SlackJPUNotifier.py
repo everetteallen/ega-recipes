@@ -20,6 +20,7 @@ from __future__ import absolute_import, print_function
 import requests
 
 from autopkglib import Processor, ProcessorError  # pylint: disable=import-error
+from datetime import datetime
 
 # Set the webhook_url to the one provided by Slack when you create the webhook at https://my.slack.com/services/new/incoming-webhook/
 
@@ -51,6 +52,8 @@ class SlackJPUNotifier(Processor):
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("slackjpu_webhook_url")
+        #replace pkg_date latter with information from jamfpackageuploader  EGA"
+        pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
         
         # JPU Summary
         try:
@@ -59,6 +62,7 @@ class SlackJPUNotifier(Processor):
             category = jamfpackageuploader_summary_result["data"]["category"]
             pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
+            # pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
             JPUTitle = "New Item Upload Attempt to JSS"
             JPUIcon = ":star:"
 
@@ -68,6 +72,8 @@ class SlackJPUNotifier(Processor):
             pkg_name = "unknown"
             pkg_path = "unknown"
             JPUTitle = "Error Running JamfPackageUploader"
+            JPUIcon = ":alarm_clock:"
+
                  
         # VirusTotal data if available
         # set VIRUSTOTAL_ALWAYS_REPORT to true to report even if no new package
@@ -82,13 +88,14 @@ class SlackJPUNotifier(Processor):
         # output so we can have sanity check
         print("********slackerJPU Information Summary: ")
         print("JSS address: %s" % JSS_URL)
-        print("Package: %s" % pkg_name)
+        print("Title: %s" % pkg_name)
         print("Path: %s" % pkg_path)
         print("Version: %s" % version)
-        print("Category: %s" % category)     
+        print("Category: %s" % category) 
+        print("TimeStamp: %s" % pkg_date)    
                 
         slack_text = (
-            f"*{JPUTitle}*\nURL:*{JSS_URL}*\n{JPUIcon} Title: *{pkg_name}*\nVersion: *{version}*\nCategory: *{category}*\nVirus Total Result: *{ratio}*\n"
+            f"*{JPUTitle}*\nURL:*{JSS_URL}*\n{JPUIcon} Title: *{pkg_name}*\nVersion: *{version}*\nCategory: *{category}*\nVirus Total Result: *{ratio}*\nTimeStamp:*{pkg_date}*\n"
         )
 
         slack_data = {"text": slack_text}
