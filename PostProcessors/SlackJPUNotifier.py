@@ -87,7 +87,7 @@ class SlackJPUNotifier(Processor):
             ratio = "Not Checked"
         
         # output so we can have sanity check
-        print("********slackerJPU Information Summary: ")
+        print("********SlackJPU Information Summary: ")
         print("JSS address: %s" % JSS_URL)
         print("Title: %s" % pkg_name)
         print("Path: %s" % pkg_path)
