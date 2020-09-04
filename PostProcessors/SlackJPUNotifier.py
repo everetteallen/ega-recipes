@@ -20,7 +20,6 @@ from __future__ import absolute_import, print_function
 import requests
 
 from autopkglib import Processor, ProcessorError  # pylint: disable=import-error
-from datetime import datetime
 
 # Set the webhook_url to the one provided by Slack when you create the webhook at https://my.slack.com/services/new/incoming-webhook/
 
@@ -57,13 +56,8 @@ class SlackJPUNotifier(Processor):
             should_report = self.env.get("slackjpu_should_report")
         except:
             should_report = False
-        #replace pkg_date latter with information from jamfpackageuploader  EGA"
-        #now = datetime.now()
-        #pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
         
         # JPU Summary
-        # NOTE getting package status based on Virus Total run with VIRUSTOTAL_ALWAYS_REPORT set false is unreliable
-        # Need to be able to get from jamfpackageuploader_summary_result in future. EGA
         try:
             jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
             version = jamfpackageuploader_summary_result["data"]["version"]
