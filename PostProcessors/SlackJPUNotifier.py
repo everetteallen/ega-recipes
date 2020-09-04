@@ -23,7 +23,7 @@ from autopkglib import Processor, ProcessorError  # pylint: disable=import-error
 
 # Set the webhook_url to the one provided by Slack when you create the webhook at https://my.slack.com/services/new/incoming-webhook/
 
-__all__ = ["Slacker"]
+__all__ = ["SlackJPUNotifier"]
 
 
 class Slacker(Processor):
@@ -107,5 +107,5 @@ class Slacker(Processor):
 
 
 if __name__ == "__main__":
-    processor = Slacker()
+    processor = SlackJPUNotifier()
     processor.execute_shell()
