@@ -26,7 +26,7 @@ from autopkglib import Processor, ProcessorError  # pylint: disable=import-error
 __all__ = ["SlackJPUNotifier"]
 
 
-class Slacker(Processor):
+class SlackJPUNotifier(Processor):
     description = (
         "Posts to Slack via webhook based on output of a JamfPackageUploader run. "
         "Takes elements from "
