@@ -53,6 +53,7 @@ class SlackJPUNotifier(Processor):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("slackjpu_webhook_url")
         #replace pkg_date latter with information from jamfpackageuploader  EGA"
+        now = datetime.now()
         pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
         
         # JPU Summary
