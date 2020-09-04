@@ -290,6 +290,7 @@ class JamfPackageUploader(Processor):
         self.smb_url = self.env.get("SMB_URL")
         self.smb_user = self.env.get("SMB_USERNAME")
         self.smb_password = self.env.get("SMB_PASSWORD")
+        pkg_status = "Unchanged"
         # clear any pre-existing summary result
         if "jamfpackageuploader_summary_result" in self.env:
             del self.env["jamfpackageuploader_summary_result"]
@@ -320,6 +321,7 @@ class JamfPackageUploader(Processor):
             if not local_pkg or self.replace_pkg == "True":
                 # copy the file
                 self.copy_pkg(self.smb_url, self.pkg_path, pkg_name)
+                pkg_status = "New Package Uploaded"
             else:
                 self.output(f"Not updating existing '{pkg_name}' on {self.jamf_url}")
             # unmount the share
@@ -336,11 +338,10 @@ class JamfPackageUploader(Processor):
                 # print result of the request
                 if r.status_code == 200 or r.status_code == 201:
                     pkg_id = ElementTree.fromstring(r.text).findtext("id")
-                    self.output(f"Package uploaded successfully, ID={pkg_id}")
-                    pkg_status = "Package Package uploaded successfully, ID={pkg_id}"
+                    self.output(f"Package uploaded to successfully, ID={pkg_id}")
+                    pkg_status = (f"Package Package uploaded successfully, ID={pkg_id}")
                     #  now process the package metadata if specified
                 else:
-                    pkg_status = "An error occurred while attempting to upload the package"
                     self.output(
                         "An error occurred while attempting to upload the package"
                     )
