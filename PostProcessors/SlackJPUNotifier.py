@@ -88,7 +88,7 @@ class SlackJPUNotifier(Processor):
                 
         slack_text = (
             f"*{JPUTitle}*\n"
-            "URL: {JSS_URL}\n"
+            "URL: *{JSS_URL}*\n"
             "Title: *{JPUIcon}* *{pkg_name}*\n"
             "Version: *{version}*\n"
             "Package Category: *{category}*\n"
