@@ -54,7 +54,7 @@ class SlackJPUNotifier(Processor):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("slackjpu_webhook_url")
         try:
-        should_report = self.env.get("slackjpu_should_report")
+            should_report = self.env.get("slackjpu_should_report")
         except:
             should_report = False
         #replace pkg_date latter with information from jamfpackageuploader  EGA"
