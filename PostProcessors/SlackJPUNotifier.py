@@ -61,7 +61,7 @@ class SlackJPUNotifier(Processor):
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
             JPUTitle = "New Item Upload Attempt to JSS"
             JPUIcon = ":star:"
-            JPUIcon = ":alarm_clock:"
+
         except:
             version = "unknown"
             category = "unknown"
