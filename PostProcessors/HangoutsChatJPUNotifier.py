@@ -26,7 +26,6 @@ from __future__ import absolute_import, print_function
 import requests
 
 from autopkglib import Processor, ProcessorError
-from datetime import datetime
 
 # Set the webhook_url to the one provided by Hangouts Chat
 # See https://developers.google.com/hangouts/chat/how-tos/webhooks
@@ -63,6 +62,10 @@ class HangoutsChatJPUNotifier(Processor):
         "hangoutschatjpu_webhook_url": {
             "required": False,
             "description": ("Hangouts Chat webhook url.")
+        },
+        "hangoutschatjpu_should_report": {
+            "required": False,
+            "description": ("Hangouts Chat Notifier should always report or not.")
         }
     }
     output_variables = {
@@ -73,14 +76,13 @@ class HangoutsChatJPUNotifier(Processor):
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("hangoutschatjpu_webhook_url")
-        #replace pkg_date latter with information from jamfpackageuploader  EGA"
-        now = datetime.now()
-        pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+        try:
+            should_report = self.env.get("hangoutschatjpu_should_report")
+        except:
+            should_report = False
 
         
         # JPU Summary
-        # NOTE getting package status based on Virus Total run with VIRUSTOTAL_ALWAYS_REPORT set false is unreliable
-        # Need to be able to get from jamfpackageuploader_summary_result in future. EGA
 
         try:
             jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
@@ -88,9 +90,8 @@ class HangoutsChatJPUNotifier(Processor):
             category = jamfpackageuploader_summary_result["data"]["category"]
             pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
-            # pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
-            pkg_status = "New"
-            # pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
+            pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
+            pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
             JPUTitle = "New Item Upload Attempt to JSS"
             JPUIcon = "STAR"
         except:
@@ -99,6 +100,7 @@ class HangoutsChatJPUNotifier(Processor):
             pkg_name = "unknown"
             pkg_path = "unknown"
             pkg_status = "Error Processing Upload to JSS"
+            pkg_date = "unknown"
             JPUTitle = "Error Running JamfPackageUploader"
             JPUIcon = "DESCRIPTION"       
         # VirusTotal data 
@@ -177,6 +179,7 @@ class HangoutsChatJPUNotifier(Processor):
         }
 
 
+        f not ("Unchanged" in pkg_status) or should_report:
         response = requests.post(webhook_url, json=hangoutschat_data)
         if response.status_code != 200:
             raise ValueError(
