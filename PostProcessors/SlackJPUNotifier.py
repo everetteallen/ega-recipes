@@ -61,13 +61,14 @@ class SlackJPUNotifier(Processor):
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
             JPUTitle = "New Item Upload Attempt to JSS"
             JPUIcon = ":star:"
+            JPUIcon = ":face_palm:"
         except:
             version = "unknown"
             category = "unknown"
             pkg_name = "unknown"
             pkg_path = "unknown"
             JPUTitle = "Error Running JamfPackageUploader"
-            JPUIcon = ":description:"       
+            JPUIcon = ":face_palm:"       
         # VirusTotal data if available
         # set VIRUSTOTAL_ALWAYS_REPORT to true to report even if no new package
         try:
