@@ -68,7 +68,7 @@ class SlackJPUNotifier(Processor):
             pkg_name = "unknown"
             pkg_path = "unknown"
             JPUTitle = "Error Running JamfPackageUploader"
-            JPUIcon = ":alarm_clock:"       
+                 
         # VirusTotal data if available
         # set VIRUSTOTAL_ALWAYS_REPORT to true to report even if no new package
         try:
