@@ -26,7 +26,7 @@ from __future__ import absolute_import, print_function
 import requests
 
 from autopkglib import Processor, ProcessorError
-from datime import datetime
+from datetime import datetime
 
 # Set the webhook_url to the one provided by Hangouts Chat
 # See https://developers.google.com/hangouts/chat/how-tos/webhooks
