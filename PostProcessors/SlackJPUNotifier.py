@@ -44,7 +44,7 @@ class SlackJPUNotifier(Processor):
             "description": ("Description of interesting results."),
         },
         "slackjpu_webhook_url": {"required": False, "description": ("Slack webhook.")},
-        "slackjpu_always_report" : {"required": False, "description": ("Should report or not")
+        "slackjpu_always_report" : {"required": False, "description": ("Should report or not")},
     }
     output_variables = {}
 
