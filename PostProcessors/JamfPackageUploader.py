@@ -330,6 +330,7 @@ class JamfPackageUploader(Processor):
 
         #  process for SMB shares if defined
         if self.smb_url:
+            self.output(f"Preparing to copy '{pkg_name}' to {self.smb_url}")
             # mount the share
             self.mount_smb(self.smb_url, self.smb_user, self.smb_password)
             # check for existing package
@@ -345,6 +346,7 @@ class JamfPackageUploader(Processor):
 
         #  otherwise process for cloud DP
         else:
+            self.output(f"Preparing to upload '{pkg_name}' to Cloud DP on {self.jamf_url}")
             if obj_id == "-1" or self.replace_pkg:
                 # post the package (won't run if the pkg exists and replace_pkg is False)
                 r = self.post_pkg(
