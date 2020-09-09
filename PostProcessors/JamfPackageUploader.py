@@ -358,6 +358,10 @@ class JamfPackageUploader(Processor):
         self.smb_password = self.env.get("SMB_PASSWORD")
         self.pkg_status = "Unchanged"
         self.pkg_prefix = self.env.get("pkg_prefix")
+        #get the local time 
+        now = datetime.now()
+        self.pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+
         # clear any pre-existing summary result
         if "jamfpackageuploader_summary_result" in self.env:
             del self.env["jamfpackageuploader_summary_result"]
@@ -371,6 +375,15 @@ class JamfPackageUploader(Processor):
         if os.path.isdir(self.pkg_path):
             self.pkg_path = self.zip_pkg_path(self.pkg_path)
             self.pkg_name += ".zip"
+            
+        # change name of package to add prefix if set
+        if self.pkg_prefix:
+            dn = os.path.dirname(self.pkg_path)
+            rename_path = f"{dn}/{self.pkg_prefix}{pkg_name}"
+            os.rename (f"{self.pkg_path}", f"{rename_path}")
+            self.pkg_path = rename_path
+            self.pkg_name = os.path.basename(self.pkg_path)
+
 
         # now start the process of uploading the package
         self.output(f"Checking for existing '{self.pkg_name}' on {self.jamf_url}")
@@ -391,6 +404,7 @@ class JamfPackageUploader(Processor):
             if not local_pkg or self.replace:
                 # copy the file
                 self.copy_pkg(self.smb_url, self.pkg_path, self.pkg_name)
+                pkg_status = "New Package Uploaded"
                 # unmount the share
                 self.umount_smb(self.smb_url)
             else:
@@ -425,6 +439,7 @@ class JamfPackageUploader(Processor):
                             self.output(
                                 "Package uploaded successfully, ID={}".format(pkg_id)
                             )
+                            self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
                     except ElementTree.ParseError:
                         self.output("Could not parse XML. Raw output:", verbose_level=2)
                         self.output(r.decode("ascii"), verbose_level=2)
@@ -442,6 +457,7 @@ class JamfPackageUploader(Processor):
                     if r.status_code == 200 or r.status_code == 201:
                         pkg_id = ElementTree.fromstring(r.text).findtext("id")
                         self.output(f"Package uploaded successfully, ID={pkg_id}")
+                        self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
                         #  now process the package metadata if specified
                     else:
                         self.output(
@@ -492,9 +508,6 @@ class JamfPackageUploader(Processor):
                     self.jamf_url, enc_creds, self.pkg_name, self.category
                 )
         
-        #get the local time 
-        now = datetime.now()
-        self.pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
         # output the summary
         self.env["pkg_name"] = self.pkg_name
