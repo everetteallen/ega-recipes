@@ -22,7 +22,7 @@ import xml.etree.ElementTree as ElementTree
 from shutil import copyfile
 from urllib.parse import urlparse
 from autopkglib import Processor, ProcessorError  # pylint: disable=import-error
-
+from datetime import datetime
 
 class JamfPackageUploader(Processor):
     """A processor for AutoPkg that will upload a package to a JCDS or 
@@ -101,6 +101,12 @@ class JamfPackageUploader(Processor):
             "the com.github.autopkg preference file.",
             "default": "",
         },
+            "pkg_prefix": {
+            "required": False,
+            "description": "Optional string to prepend to package before upload"
+            "can be in preferences or passed from environment",
+            "default": "",
+        }
     }
 
     output_variables = {
@@ -350,6 +356,8 @@ class JamfPackageUploader(Processor):
         self.smb_url = self.env.get("SMB_URL")
         self.smb_user = self.env.get("SMB_USERNAME")
         self.smb_password = self.env.get("SMB_PASSWORD")
+        self.pkg_status = "Unchanged"
+        self.pkg_prefix = self.env.get("pkg_prefix")
         # clear any pre-existing summary result
         if "jamfpackageuploader_summary_result" in self.env:
             del self.env["jamfpackageuploader_summary_result"]
@@ -483,18 +491,24 @@ class JamfPackageUploader(Processor):
                 self.update_pkg_metadata(
                     self.jamf_url, enc_creds, self.pkg_name, self.category
                 )
+        
+        #get the local time 
+        now = datetime.now()
+        self.pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
         # output the summary
         self.env["pkg_name"] = self.pkg_name
         self.env["pkg_uploaded"] = True
         self.env["jamfpackageuploader_summary_result"] = {
             "summary_text": "The following packages were uploaded to Jamf Pro:",
-            "report_fields": ["pkg_path", "pkg_name", "version", "category"],
+            "report_fields": ["pkg_path", "pkg_name", "version", "category", "pkg_status", "pkg_date"],
             "data": {
                 "pkg_path": self.pkg_path,
-                "pkg_name": self.pkg_name,
+                "pkg_name": pkg_name,
                 "version": self.version,
                 "category": self.category,
+                "pkg_status": self.pkg_status,
+                "pkg_date": self.pkg_date,
             },
         }
 
