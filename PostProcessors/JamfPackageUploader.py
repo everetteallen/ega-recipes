@@ -516,11 +516,11 @@ class JamfPackageUploader(Processor):
             try:
                 pkg_id
                 self.update_pkg_metadata(
-                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.date, pkg_id
+                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date, pkg_id
                 )
             except UnboundLocalError:
                 self.update_pkg_metadata(
-                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.date,
+                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date,
                 )
         
 
