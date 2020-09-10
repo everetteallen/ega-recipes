@@ -281,6 +281,7 @@ class JamfPackageUploader(Processor):
             + f"<filename>{pkg_name}</filename>" 
         )
         # add if available add a category, put the version in the package info, put pkg_date in notes
+        
         if category:
             pkg_data += f"<category>{category}</category>"
         if version:
@@ -387,7 +388,7 @@ class JamfPackageUploader(Processor):
         # change name of package to add prefix if set
         if self.pkg_prefix:
             dn = os.path.dirname(self.pkg_path)
-            rename_path = f"{dn}/{self.pkg_prefix}{pkg_name}"
+            rename_path = f"{dn}/{self.pkg_prefix}{self.pkg_name}"
             os.rename (f"{self.pkg_path}", f"{rename_path}")
             self.pkg_path = rename_path
             self.pkg_name = os.path.basename(self.pkg_path)
