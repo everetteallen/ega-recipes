@@ -539,6 +539,7 @@ class JamfPackageUploader(Processor):
                 "pkg_date": self.pkg_date
             },
         }
+        print( self.env["jamfpackageuploader_summary_result"])
 
 
 if __name__ == "__main__":
