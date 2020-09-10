@@ -532,11 +532,11 @@ class JamfPackageUploader(Processor):
             "report_fields": ["pkg_path", "pkg_name", "version", "category", "pkg_status", "pkg_date"],
             "data": {
                 "pkg_path": self.pkg_path,
-                "pkg_name": pkg_name,
+                "pkg_name": self.pkg_name,
                 "version": self.version,
                 "category": self.category,
                 "pkg_status": self.pkg_status,
-                "pkg_date": self.pkg_date,
+                "pkg_date": self.pkg_date
             },
         }
 
