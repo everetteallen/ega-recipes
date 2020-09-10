@@ -84,7 +84,7 @@ class HangoutsChatJPUNotifier(Processor):
         
         # JPU Summary
         jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
-        version = jamfpackageuploader_summary_result["data"]["version"]
+        version = "1.0" #jamfpackageuploader_summary_result["data"]["version"]
         category = jamfpackageuploader_summary_result["data"]["category"]
         pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
         pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
