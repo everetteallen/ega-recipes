@@ -85,15 +85,15 @@ class HangoutsChatJPUNotifier(Processor):
         # JPU Summary
 """
          try: """
-            jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
-            version = jamfpackageuploader_summary_result["data"]["version"]
-            category = jamfpackageuploader_summary_result["data"]["category"]
-            pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
-            pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
-            pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
-            pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
-            JPUTitle = "New Item Upload Attempt to JSS"
-            JPUIcon = "STAR"
+        jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
+        version = jamfpackageuploader_summary_result["data"]["version"]
+        category = jamfpackageuploader_summary_result["data"]["category"]
+        pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
+        pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
+        pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
+        pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
+        JPUTitle = "New Item Upload Attempt to JSS"
+        JPUIcon = "STAR"
 """        except:
             version = "unknown"
             category = "unknown"
@@ -103,7 +103,7 @@ class HangoutsChatJPUNotifier(Processor):
             pkg_date = "unknown"
             JPUTitle = "Error Running JamfPackageUploader"
             JPUIcon = "DESCRIPTION"       
-            """
+            
         # VirusTotal data 
         # set VIRUSTOTAL_ALWAYS_REPORT to true to report even if no new package
         try:
