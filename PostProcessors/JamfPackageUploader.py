@@ -271,17 +271,25 @@ class JamfPackageUploader(Processor):
         r = subprocess.check_output(curl_cmd)
         return r
 
-    def update_pkg_metadata(self, jamf_url, enc_creds, pkg_name, category, pkg_id=None):
-        """Update package metadata. Currently only serves category"""
+    def update_pkg_metadata(self, jamf_url, enc_creds, pkg_name, category, version, pkg_date, pkg_id=None):
+        """Update package metadata. Currently only serves category, info, notes"""
 
         # build the package record XML
         pkg_data = (
             "<package>"
             + f"<name>{pkg_name}</name>"
-            + f"<filename>{pkg_name}</filename>"
-            + f"<category>{category}</category>"
-            + "</package>"
+            + f"<filename>{pkg_name}</filename>" 
         )
+        # add if available add a category, put the version in the package info, put pkg_date in notes
+        if category:
+            pkg_data += f"<category>{category}</category>"
+        if version:
+            pkg_data += f"<info>{version}</info>"
+        if pkg_date:
+            pkg_data += f"<notes>{pkg_date}</notes>"
+        # close the package xml
+        pkg_data += "</package>"
+        
         headers = {
             "authorization": f"Basic {enc_creds}",
             "Accept": "application/xml",
@@ -401,12 +409,18 @@ class JamfPackageUploader(Processor):
             self.mount_smb(self.smb_url, self.smb_user, self.smb_password)
             # check for existing package
             local_pkg = self.check_local_pkg(self.smb_url, self.pkg_name)
+            self.output(
+                "Begin package upload..."
+                )
             if not local_pkg or self.replace:
                 # copy the file
                 self.copy_pkg(self.smb_url, self.pkg_path, self.pkg_name)
                 pkg_status = "New Package Uploaded"
                 # unmount the share
                 self.umount_smb(self.smb_url)
+                self.output(
+                "Upload complete!"
+                )
             else:
                 self.output(
                     f"Not updating existing '{self.pkg_name}' on {self.jamf_url}"
@@ -497,15 +511,15 @@ class JamfPackageUploader(Processor):
                 return
 
         #  now process the package metadata if specified
-        if self.category or self.smb_url:
+        if self.category or self.smb_url or self.pkg_date or self.version:
             try:
                 pkg_id
                 self.update_pkg_metadata(
-                    self.jamf_url, enc_creds, self.pkg_name, self.category, pkg_id
+                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.date, pkg_id
                 )
             except UnboundLocalError:
                 self.update_pkg_metadata(
-                    self.jamf_url, enc_creds, self.pkg_name, self.category
+                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.date,
                 )
         
 
