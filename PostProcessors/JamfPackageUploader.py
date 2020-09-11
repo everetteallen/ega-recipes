@@ -274,6 +274,7 @@ class JamfPackageUploader(Processor):
     def update_pkg_metadata(self, jamf_url, enc_creds, pkg_name, category, version, pkg_date, pkg_id=None):
         """Update package metadata. Currently only serves category, info, notes"""
 
+        self.output("in update metadata routine")
         # build the package record XML
         pkg_data = (
             "<package>"
