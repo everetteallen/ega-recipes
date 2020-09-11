@@ -127,7 +127,7 @@ class HangoutsChatJPUNotifier(Processor):
         print("Version: %s" % version)
         print("Category: %s" % category)
         #print("Status: %s" % pkg_status)
-        print("TimeStamp: %s" % pkg_date)
+        #print("TimeStamp: %s" % pkg_date)
        
 
         hangoutschat_data = {
