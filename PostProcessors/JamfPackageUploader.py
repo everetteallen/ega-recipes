@@ -479,7 +479,7 @@ class JamfPackageUploader(Processor):
                     # print result of the request
                     if r.status_code == 200 or r.status_code == 201:
                         pkg_id = ElementTree.fromstring(r.text).findtext("id")
-                        pkg_date = ElmentTree.fromstring(r).findtext("notes")
+                        pkg_date = ElementTree.fromstring(r).findtext("notes")
                         self.output(f"Package uploaded successfully, ID={pkg_id}")
                         self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
                         self.pkg_uploaded = True
