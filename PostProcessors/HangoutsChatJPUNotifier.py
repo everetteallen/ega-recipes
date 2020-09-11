@@ -115,6 +115,9 @@ class HangoutsChatJPUNotifier(Processor):
         except:
             ratio = "Not Checked"
 
+        if not pkg_date:
+            pkg_date = "Unknown"
+            
         print("****HangoutsChatJPU Information Summary: ")
         print("JSS address: %s" % JSS_URL)
         print("Package: %s" % pkg_name)
