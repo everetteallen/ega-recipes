@@ -369,6 +369,7 @@ class JamfPackageUploader(Processor):
         self.smb_password = self.env.get("SMB_PASSWORD")
         self.pkg_status = "Unchanged"
         self.pkg_prefix = self.env.get("pkg_prefix")
+        self.pkg_uploaded = False
         #get the local time 
         now = datetime.now()
         self.pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
@@ -405,7 +406,6 @@ class JamfPackageUploader(Processor):
             self.output(
                 "Package '{}' already exists: ID {}".format(self.pkg_name, obj_id)
             )
-            self.env["pkg_uploaded"] = False
             self.pkg_date = pkg_date
 
         #  process for SMB shares if defined
@@ -421,6 +421,7 @@ class JamfPackageUploader(Processor):
                 # copy the file
                 self.copy_pkg(self.smb_url, self.pkg_path, self.pkg_name)
                 pkg_status = "New Package Uploaded"
+                self.pkg_updated = True
                 # unmount the share
                 self.umount_smb(self.smb_url)
                 self.output(
@@ -460,7 +461,7 @@ class JamfPackageUploader(Processor):
                                 "Package uploaded successfully, ID={}".format(pkg_id)
                             )
                             self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
-                            self.env["pkg_uploaded"] = True
+                            self.pkg_uploaded = True
                     except ElementTree.ParseError:
                         self.output("Could not parse XML. Raw output:", verbose_level=2)
                         self.output(r.decode("ascii"), verbose_level=2)
@@ -480,6 +481,7 @@ class JamfPackageUploader(Processor):
                         pkg_date = ElmentTree.fromstring(r).findtext("notes")
                         self.output(f"Package uploaded successfully, ID={pkg_id}")
                         self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
+                        self.pkg_uploaded = True
                         #  now process the package metadata if specified
                     else:
                         self.output(
@@ -515,21 +517,21 @@ class JamfPackageUploader(Processor):
                 )
                 # even if we don't upload a package, we still need to pass it on so that a policy processor can use it
                 self.env["pkg_name"] = self.pkg_name
-                self.env["pkg_uploaded"] = False
+                self.pkg_uploaded = False
                 #return
 
         #  now process the package metadata if specified and there is an update
-        if self.replace_pkg or self.env["pkg_uploaded"]
-        if self.category or self.smb_url or self.pkg_date or self.version:
-            try:
-                pkg_id
-                self.update_pkg_metadata(
-                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date, pkg_id
-                )
-            except UnboundLocalError:
-                self.update_pkg_metadata(
-                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date
-                )
+        if self.replace_pkg or self.pkg_uploaded:
+            if self.category or self.smb_url or self.pkg_date or self.version:
+                try:
+                    pkg_id
+                    self.update_pkg_metadata(
+                        self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date, pkg_id
+                    )
+                except UnboundLocalError:
+                    self.update_pkg_metadata(
+                        self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date
+                    )
         
 
         # output the summary
