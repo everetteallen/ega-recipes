@@ -204,7 +204,7 @@ class JamfPackageUploader(Processor):
             )
         return zip_name
 
-    def check_pkg(self, pkg_name, jamf_url, enc_creds):
+    def check_pkg(self, pkg_date, pkg_name, jamf_url, enc_creds):
         """check if a package with the same name exists in the repo
         note that it is possible to have more than one with the same name
         which could mess things up"""
@@ -223,8 +223,7 @@ class JamfPackageUploader(Processor):
                 obj_id = "-1"
         else:
             obj_id = "-1"
-        if not pkg_date:
-        	pkg_date = "3"
+            
         return obj_id, pkg_date
 
     def post_pkg(self, pkg_name, pkg_path, jamf_url, enc_creds, obj_id):
@@ -403,7 +402,7 @@ class JamfPackageUploader(Processor):
         self.output(f"Checking for existing '{self.pkg_name}' on {self.jamf_url}")
 
         # check for existing
-        obj_id, pkg_date = self.check_pkg(self.pkg_name, self.jamf_url, enc_creds)
+        obj_id, pkg_date = self.check_pkg(self.pkg_name, self.pkg_date, self.jamf_url, enc_creds)
         if obj_id != "-1":
             self.output(
                 "Package '{}' already exists: ID {}".format(self.pkg_name, obj_id)
