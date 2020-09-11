@@ -76,7 +76,6 @@ class HangoutsChatJPUNotifier(Processor):
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("hangoutschatjpu_webhook_url")
-        pkg_date = ""
         
         try:
             should_report = self.env.get("hangoutschatjpu_should_report")
@@ -116,9 +115,6 @@ class HangoutsChatJPUNotifier(Processor):
             permalink = virus_total_analyzer_summary_result["data"]["permalink"]
         except:
             ratio = "Not Checked"
-
-        if not pkg_date:
-            pkg_date = "Unknown"
             
         print("****HangoutsChatJPU Information Summary: ")
         print("JSS address: %s" % JSS_URL)
