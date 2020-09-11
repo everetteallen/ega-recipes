@@ -218,7 +218,7 @@ class JamfPackageUploader(Processor):
             obj = json.loads(r.text)
             try:
                 obj_id = str(obj["package"]["id"])
-                pkg_date = str(obj["package"]["note"])
+                #pkg_date = str(obj["package"]["note"])
             except KeyError:
                 obj_id = "-1"
         else:
