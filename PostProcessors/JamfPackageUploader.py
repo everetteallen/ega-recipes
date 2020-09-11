@@ -218,11 +218,12 @@ class JamfPackageUploader(Processor):
             obj = json.loads(r.text)
             try:
                 obj_id = str(obj["package"]["id"])
+                pkg_date = str(obj["package"]["note"])
             except KeyError:
                 obj_id = "-1"
         else:
             obj_id = "-1"
-        return obj_id
+        return obj_id, pkg_date
 
     def post_pkg(self, pkg_name, pkg_path, jamf_url, enc_creds, obj_id):
         """sends the package"""
@@ -399,11 +400,13 @@ class JamfPackageUploader(Processor):
         self.output(f"Checking for existing '{self.pkg_name}' on {self.jamf_url}")
 
         # check for existing
-        obj_id = self.check_pkg(self.pkg_name, self.jamf_url, enc_creds)
+        obj_id, pkg_date = self.check_pkg(self.pkg_name, self.jamf_url, enc_creds)
         if obj_id != "-1":
             self.output(
                 "Package '{}' already exists: ID {}".format(self.pkg_name, obj_id)
             )
+            self.env["pkg_uploaded"] = False
+            self.pkg_date = pkg_date
 
         #  process for SMB shares if defined
         if self.smb_url:
@@ -432,7 +435,7 @@ class JamfPackageUploader(Processor):
                 # even if we don't upload a package, we still need to pass it on so that a policy processor can use it
                 self.env["pkg_name"] = self.pkg_name
                 self.env["pkg_uploaded"] = False
-                return
+                # return
 
         #  otherwise process for cloud DP
         else:
@@ -456,7 +459,8 @@ class JamfPackageUploader(Processor):
                             self.output(
                                 "Package uploaded successfully, ID={}".format(pkg_id)
                             )
-                            self.pkg_status = (f"Package uploaded successfully, ID={pkg_id} on {pkg_date}")
+                            self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
+                            self.env["pkg_uploaded"] = True
                     except ElementTree.ParseError:
                         self.output("Could not parse XML. Raw output:", verbose_level=2)
                         self.output(r.decode("ascii"), verbose_level=2)
@@ -474,8 +478,8 @@ class JamfPackageUploader(Processor):
                     if r.status_code == 200 or r.status_code == 201:
                         pkg_id = ElementTree.fromstring(r.text).findtext("id")
                         pkg_date = ElmentTree.fromstring(r).findtext("notes")
-                        self.output(f"Package uploaded successfully, ID={pkg_id} on {pkg_date}")
-                        self.pkg_status = (f"Package uploaded successfully, ID={pkg_id} on {pkg_date}")
+                        self.output(f"Package uploaded successfully, ID={pkg_id}")
+                        self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
                         #  now process the package metadata if specified
                     else:
                         self.output(
@@ -514,7 +518,8 @@ class JamfPackageUploader(Processor):
                 self.env["pkg_uploaded"] = False
                 #return
 
-        #  now process the package metadata if specified
+        #  now process the package metadata if specified and there is an update
+        if self.replace_pkg or self.env["pkg_uploaded"]
         if self.category or self.smb_url or self.pkg_date or self.version:
             try:
                 pkg_id
@@ -523,7 +528,7 @@ class JamfPackageUploader(Processor):
                 )
             except UnboundLocalError:
                 self.update_pkg_metadata(
-                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date,
+                    self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date
                 )
         
 
