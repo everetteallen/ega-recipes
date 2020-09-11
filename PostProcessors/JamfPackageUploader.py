@@ -451,11 +451,12 @@ class JamfPackageUploader(Processor):
                     )
                     try:
                         pkg_id = ElementTree.fromstring(r).findtext("id")
+                        pkg_date = ElmentTree.fromstring(r).findtext("notes")
                         if pkg_id:
                             self.output(
                                 "Package uploaded successfully, ID={}".format(pkg_id)
                             )
-                            self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
+                            self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}, Date = {pkg_date}")
                     except ElementTree.ParseError:
                         self.output("Could not parse XML. Raw output:", verbose_level=2)
                         self.output(r.decode("ascii"), verbose_level=2)
