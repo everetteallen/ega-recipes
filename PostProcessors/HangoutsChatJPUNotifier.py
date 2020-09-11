@@ -77,6 +77,7 @@ class HangoutsChatJPUNotifier(Processor):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("hangoutschatjpu_webhook_url")
         pkg_date = ""
+        pkg-status = ""
         
         try:
             should_report = self.env.get("hangoutschatjpu_should_report")
@@ -102,7 +103,7 @@ class HangoutsChatJPUNotifier(Processor):
             pkg_name = "Unknown"
             pkg_path = "Unknown"
             pkg_status = "Unknown"
-            pkg_date = "Unknown"
+            pkg_date = "unknown"
             JPUTitle = "Upload Status Unknown"
             JPUIcon = "DESCRIPTION"
     
