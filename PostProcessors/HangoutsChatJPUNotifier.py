@@ -86,13 +86,13 @@ class HangoutsChatJPUNotifier(Processor):
         try:
             jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
             version = jamfpackageuploader_summary_result["data"]["version"]
-        	category = jamfpackageuploader_summary_result["data"]["category"]
-        	pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
-        	pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
-        	pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
-        	pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
-        	JPUTitle = "New Item Upload Attempt to JSS"
-        	JPUIcon = "STAR"
+            category = jamfpackageuploader_summary_result["data"]["category"]
+            pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
+            pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
+            pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
+            pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
+            JPUTitle = "New Item Upload Attempt to JSS"
+            JPUIcon = "STAR"
         
         except:
             category = "Unknown"
