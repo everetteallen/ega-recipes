@@ -526,7 +526,7 @@ class JamfPackageUploader(Processor):
         
 
         # output the summary
-        self.output("Outputting Summary...")
+        self.output("*********************Outputting Summary...")
         self.env["pkg_name"] = self.pkg_name
         self.env["pkg_uploaded"] = True
         self.env["jamfpackageuploader_summary_result"] = {
@@ -541,7 +541,7 @@ class JamfPackageUploader(Processor):
                 "pkg_date": self.pkg_date
             },
         }
-        self.output("Printing result of jamfpackageuploader_summary_result")
+        self.output("*********************Printing result of jamfpackageuploader_summary_result")
         self.output(self.env["jamfpackageuploader_summary_result"])
 
 
