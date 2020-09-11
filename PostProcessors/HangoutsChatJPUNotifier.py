@@ -124,7 +124,7 @@ class HangoutsChatJPUNotifier(Processor):
         print("Path: %s" % pkg_path)
         print("Version: %s" % version)
         print("Category: %s" % category)
-        print("Status: %s" % pkg_status)
+        #print("Status: %s" % pkg_status)
         print("TimeStamp: %s" % pkg_date)
        
 
