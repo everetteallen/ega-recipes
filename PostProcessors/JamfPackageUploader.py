@@ -223,6 +223,8 @@ class JamfPackageUploader(Processor):
                 obj_id = "-1"
         else:
             obj_id = "-1"
+        if not pkg_date:
+        	pkg_date = "3"
         return obj_id, pkg_date
 
     def post_pkg(self, pkg_name, pkg_path, jamf_url, enc_creds, obj_id):
