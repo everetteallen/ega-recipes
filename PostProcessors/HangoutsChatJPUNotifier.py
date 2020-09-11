@@ -102,7 +102,7 @@ class HangoutsChatJPUNotifier(Processor):
             pkg_status = "Unknown"
             pkg_date = "Unknown"
             JPUTitle = "Upload Status Unknown"
-            JPUIcon = "DOCUMENT"
+            JPUIcon = "DESCRIPTION"
     
             
         # VirusTotal data 
