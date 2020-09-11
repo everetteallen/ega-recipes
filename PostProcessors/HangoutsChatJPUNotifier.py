@@ -95,8 +95,8 @@ class HangoutsChatJPUNotifier(Processor):
             JPUTitle = "New Item Upload Attempt to JSS"
             JPUIcon = "STAR"
         
-        except:
-            Exception, e: print(e)
+        except Exception, e: 
+            print(e)
             category = "Unknown"
             version = "Unknown"
             pkg_name = "Unknown"
