@@ -406,9 +406,6 @@ class JamfPackageUploader(Processor):
             self.mount_smb(self.smb_url, self.smb_user, self.smb_password)
             # check for existing package
             local_pkg = self.check_local_pkg(self.smb_url, self.pkg_name)
-            self.output(
-                "Begin package upload..."
-                )
             if not local_pkg or self.replace:
                 # copy the file
                 self.copy_pkg(self.smb_url, self.pkg_path, self.pkg_name)
@@ -416,9 +413,6 @@ class JamfPackageUploader(Processor):
                 self.pkg_updated = True
                 # unmount the share
                 self.umount_smb(self.smb_url)
-                self.output(
-                "Upload complete!"
-                )
             else:
                 self.output(
                     f"Not updating existing '{self.pkg_name}' on {self.jamf_url}"
@@ -512,15 +506,15 @@ class JamfPackageUploader(Processor):
 
         #  now process the package metadata if specified and there is an update
         if self.replace_pkg or self.pkg_uploaded:
-            if self.category or self.smb_url or self.pkg_date or self.version:
+            if self.category:
                 try:
                     pkg_id
                     self.update_pkg_metadata(
-                        self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date, pkg_id
+                        self.jamf_url, enc_creds, self.pkg_name, self.category, pkg_id
                     )
                 except UnboundLocalError:
                     self.update_pkg_metadata(
-                        self.jamf_url, enc_creds, self.pkg_name, self.category, self.version, self.pkg_date
+                        self.jamf_url, enc_creds, self.pkg_name, self.category
                     )
         
 
