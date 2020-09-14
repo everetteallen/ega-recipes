@@ -505,7 +505,7 @@ class JamfPackageUploader(Processor):
                 #return
 
         #  now process the package metadata if specified and there is an update
-        if self.replace_pkg or self.pkg_uploaded:
+        if self.replace or self.pkg_uploaded:
             if self.category:
                 try:
                     pkg_id
