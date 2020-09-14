@@ -224,7 +224,7 @@ class JamfPackageUploader(Processor):
         else:
             obj_id = "-1"
             
-        return obj_id, pkg_date
+        return obj_id
 
     def post_pkg(self, pkg_name, pkg_path, jamf_url, enc_creds, obj_id):
         """sends the package"""
