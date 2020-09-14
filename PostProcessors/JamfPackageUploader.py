@@ -204,7 +204,7 @@ class JamfPackageUploader(Processor):
             )
         return zip_name
 
-    def check_pkg(self, pkg_date, pkg_name, jamf_url, enc_creds):
+    def check_pkg(self, pkg_name, jamf_url, enc_creds):
         """check if a package with the same name exists in the repo
         note that it is possible to have more than one with the same name
         which could mess things up"""
