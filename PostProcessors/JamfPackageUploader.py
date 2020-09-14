@@ -241,7 +241,7 @@ class JamfPackageUploader(Processor):
 
         http = requests.Session()
         r = http.post(url, data=files, headers=headers, timeout=3600)
-        sleep 30
+        sleep(30)
         return r
 
     def curl_pkg(self, pkg_name, pkg_path, jamf_url, enc_creds, obj_id):
@@ -272,7 +272,7 @@ class JamfPackageUploader(Processor):
         self.output(curl_cmd, verbose_level=2)
 
         r = subprocess.check_output(curl_cmd)
-        sleep 30
+        sleep(30)
         return r
 
     def update_pkg_metadata(self, jamf_url, enc_creds, pkg_name, category, pkg_id=None):
