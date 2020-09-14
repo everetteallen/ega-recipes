@@ -70,11 +70,12 @@ class SlackJPUNotifier(Processor):
             JPUIcon = ":star:"  
 
         except:
-            pkg_status = "Unchanged"
+            pkg_status = "unknown"
             version = "unknown"
             category = "unknown"
             pkg_name = "unknown"
             pkg_path = "unknown"
+            pkg_date = "unknown"
             pkg_status = "Error Processing Upload to JSS"
             JPUTitle = "Error Running JamfPackageUploader"
             JPUIcon = ":alarm_clock:"
