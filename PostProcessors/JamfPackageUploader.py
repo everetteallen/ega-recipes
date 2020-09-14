@@ -273,8 +273,8 @@ class JamfPackageUploader(Processor):
         r = subprocess.check_output(curl_cmd)
         return r
 
-    def update_pkg_metadata(self, jamf_url, enc_creds, pkg_name, category, version, pkg_date, pkg_id=None):
-        """Update package metadata. Currently only serves category, info, notes"""
+    def update_pkg_metadata(self, jamf_url, enc_creds, pkg_name, category, pkg_id=None):
+        """Update package metadata. Currently only serves category"""
 
         self.output("in update metadata routine")
         # build the package record XML
@@ -282,17 +282,9 @@ class JamfPackageUploader(Processor):
             "<package>"
             + f"<name>{pkg_name}</name>"
             + f"<filename>{pkg_name}</filename>" 
+            + f"<category>{category}</category>"
+            + "</package>"
         )
-        # add if available add a category, put the version in the package info, put pkg_date in notes
-        
-        if category:
-            pkg_data += f"<category>{category}</category>"
-        if version:
-            pkg_data += f"<info>{version}</info>"
-        if pkg_date:
-            pkg_data += f"<notes>{pkg_date}</notes>"
-        # close the package xml
-        pkg_data += "</package>"
         
         headers = {
             "authorization": f"Basic {enc_creds}",
@@ -402,12 +394,11 @@ class JamfPackageUploader(Processor):
         self.output(f"Checking for existing '{self.pkg_name}' on {self.jamf_url}")
 
         # check for existing
-        obj_id, pkg_date = self.check_pkg(self.pkg_name, self.pkg_date, self.jamf_url, enc_creds)
+        obj_id = self.check_pkg(self.pkg_name, self.jamf_url, enc_creds)
         if obj_id != "-1":
             self.output(
                 "Package '{}' already exists: ID {}".format(self.pkg_name, obj_id)
             )
-            self.pkg_date = pkg_date
 
         #  process for SMB shares if defined
         if self.smb_url:
@@ -456,7 +447,6 @@ class JamfPackageUploader(Processor):
                     )
                     try:
                         pkg_id = ElementTree.fromstring(r).findtext("id")
-                        #pkg_date = ElmentTree.fromstring(r).findtext("notes")
                         if pkg_id:
                             self.output(
                                 "Package uploaded successfully, ID={}".format(pkg_id)
@@ -479,7 +469,6 @@ class JamfPackageUploader(Processor):
                     # print result of the request
                     if r.status_code == 200 or r.status_code == 201:
                         pkg_id = ElementTree.fromstring(r.text).findtext("id")
-                        # pkg_date = ElementTree.fromstring(r).findtext("notes")
                         self.output(f"Package uploaded successfully, ID={pkg_id}")
                         self.pkg_status = (f"Package uploaded successfully, ID={pkg_id}")
                         self.pkg_uploaded = True
@@ -537,7 +526,7 @@ class JamfPackageUploader(Processor):
 
         # output the summary
         self.env["pkg_name"] = self.pkg_name
-        self.env["pkg_uploaded"] = True
+        self.env["pkg_uploaded"] = self.pkg_uploaded
         self.env["jamfpackageuploader_summary_result"] = {
             "summary_text": "The following packages were uploaded to Jamf Pro:",
             "report_fields": ["pkg_path", "pkg_name", "version", "category", "pkg_status", "pkg_date"],
