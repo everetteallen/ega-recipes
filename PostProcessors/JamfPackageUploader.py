@@ -6,6 +6,7 @@ JamfPackageUploader processor for AutoPkg
 
 Developed from an idea posted at
     https://www.jamf.com/jamf-nation/discussions/27869#responseChild166021
+    Modified by Everette Allen to provide summary information for SlackJPUNotifier and HangoutsChatJPUNotifier
 """
 
 
