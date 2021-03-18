@@ -18,6 +18,7 @@
 from __future__ import absolute_import, print_function
 
 import requests
+from datetime import datetime
 
 from autopkglib import Processor, ProcessorError  # pylint: disable=import-error
 
@@ -52,6 +53,11 @@ class SlackJPUNotifier(Processor):
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("slackjpu_webhook_url")
+        
+        #get the local time 
+        now = datetime.now()
+        self.pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+        
         try:
             should_report = self.env.get("slackjpu_should_report")
         except:
@@ -65,7 +71,7 @@ class SlackJPUNotifier(Processor):
             pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
             pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
-            pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
+            pkg_date = self.pkg_date
             JPUTitle = "New Item Upload Attempt to JSS"
             JPUIcon = ":star:"  
 
@@ -75,7 +81,7 @@ class SlackJPUNotifier(Processor):
             category = "unknown"
             pkg_name = "unknown"
             pkg_path = "unknown"
-            pkg_date = "unknown"
+            pkg_date = self.pkg_date
             pkg_status = "Error Processing Upload to JSS"
             JPUTitle = "Error Running JamfPackageUploader"
             JPUIcon = ":alarm_clock:"
