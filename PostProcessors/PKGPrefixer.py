@@ -40,7 +40,7 @@ class PKGPrefixer(Processor):
             "default": "",
         },
         "pkg_path": {
-            "required": True,
+            "required": False,
             "description": "Path to a pkg or dmg to import - provided by "
             "previous pkg recipe/processor.",
             "default": "",
