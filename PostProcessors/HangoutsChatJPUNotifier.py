@@ -24,6 +24,7 @@
 from __future__ import absolute_import, print_function
 
 import requests
+from datetime import datetime
 
 from autopkglib import Processor, ProcessorError
 
@@ -77,6 +78,10 @@ class HangoutsChatJPUNotifier(Processor):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("hangoutschatjpu_webhook_url")
         
+        #get the local time 
+        now = datetime.now()
+        self.pkg_date = date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+        
         try:
             should_report = self.env.get("hangoutschatjpu_should_report")
         except:
@@ -91,7 +96,7 @@ class HangoutsChatJPUNotifier(Processor):
             pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
             pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
-            pkg_date = jamfpackageuploader_summary_result["data"]["pkg_date"]
+            pkg_date = self.pkg_date
             JPUTitle = "New Item Upload Attempt to JSS"
             JPUIcon = "STAR"
         
@@ -102,7 +107,7 @@ class HangoutsChatJPUNotifier(Processor):
             pkg_name = "Unknown"
             pkg_path = "Unknown"
             pkg_status = "Unknown"
-            pkg_date = "unknown"
+            pkg_date = self.pkg_date
             JPUTitle = "Upload Status Unknown"
             JPUIcon = "DESCRIPTION"
     
