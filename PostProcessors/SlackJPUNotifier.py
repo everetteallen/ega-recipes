@@ -62,10 +62,15 @@ class SlackJPUNotifier(Processor):
         # JPU Summary
         try:
             # jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
+            print("in try for summary")
             version = self.env.get("version")
+            print(version)
             category = self.env.get("pkg_category")
+            print(category)
             pkg_name = self.env.get("pkg_name")
+            print(pkg_name)
             pkg_path = self.env.get("pkg_path")
+            print(pkg_path)
             # pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
             pkg_date = self.pkg_date
             JPUTitle = "New Item Upload Attempt to JSS"
