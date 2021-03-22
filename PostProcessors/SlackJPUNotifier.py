@@ -76,7 +76,7 @@ class SlackJPUNotifier(Processor):
             # JPUIcon = ":star:"  
 
         except:
-            pkg_status = "unknown"
+            # pkg_status = "unknown"
             version = "unknown"
             category = "unknown"
             pkg_name = "unknown"
@@ -107,7 +107,8 @@ class SlackJPUNotifier(Processor):
         # print("Status: %s" % pkg_status)
         print("TimeStamp: %s" % pkg_date)    
                 
-        '''slack_text = (
+        '''
+        slack_text = (
             f"*{JPUTitle}*\nURL:*{JSS_URL}*\n{JPUIcon} Title: *{pkg_name}*\nVersion: *{version}*\nCategory: *{category}*\nStatus: *{pkg_status}*\nVirus Total Result: *{ratio}*\nTimeStamp:*{pkg_date}*\n"
         )
         '''
