@@ -56,10 +56,6 @@ class HangoutsChatJPUNotifier(Processor):
             "required": False,
             "description": ("The created package.")
         },
-        "jamfpackageuploader_summary_result": {
-            "required": False,
-            "description": ("Description of interesting results.")
-        },
         "hangoutschatjpu_webhook_url": {
             "required": False,
             "description": ("Hangouts Chat webhook url.")
@@ -77,6 +73,7 @@ class HangoutsChatJPUNotifier(Processor):
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("hangoutschatjpu_webhook_url")
+        bugged = False
         
         #get the local time 
         now = datetime.now()
@@ -86,18 +83,15 @@ class HangoutsChatJPUNotifier(Processor):
             should_report = self.env.get("hangoutschatjpu_should_report")
         except:
             should_report = False
-
         
         # JPU Summary
         try:
-            jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
-            version = jamfpackageuploader_summary_result["data"]["version"]
-            category = jamfpackageuploader_summary_result["data"]["category"]
-            pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
-            pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
-            pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
+            version = self.env.get("version")
+            category = self.env.get("pkg_category")
+            pkg_name = self.env.get("pkg_name")
+            pkg_path = self.env.get("pkg_path")
             pkg_date = self.pkg_date
-            JPUTitle = "New Item Upload Attempt to JSS"
+            JPUTitle = "New Item Upload Attempt to: "
             JPUIcon = "STAR"
         
         except Exception as e: 
@@ -108,7 +102,7 @@ class HangoutsChatJPUNotifier(Processor):
             pkg_path = "Unknown"
             pkg_status = "Unknown"
             pkg_date = self.pkg_date
-            JPUTitle = "Upload Status Unknown"
+            JPUTitle = "Error Uploading To: "
             JPUIcon = "DESCRIPTION"
     
             
@@ -121,32 +115,30 @@ class HangoutsChatJPUNotifier(Processor):
             permalink = virus_total_analyzer_summary_result["data"]["permalink"]
         except:
             ratio = "Not Checked"
-            
-        print("****HangoutsChatJPU Information Summary: ")
-        print("JSS address: %s" % JSS_URL)
-        print("Package: %s" % pkg_name)
-        print("Path: %s" % pkg_path)
-        print("Version: %s" % version)
-        print("Category: %s" % category)
-        print("Status: %s" % pkg_status)
-        print("TimeStamp: %s" % pkg_date)
+        if bugged:
+            print("****HangoutsChatJPU Information Summary: ")
+            print("JSS address: %s" % JSS_URL)
+            print("Package: %s" % pkg_name)
+            print("Path: %s" % pkg_path)
+            print("Version: %s" % version)
+            print("Category: %s" % category)
+            print("TimeStamp: %s" % pkg_date)
        
-
         hangoutschat_data = {
             "cards": [
                 {
                     "header": {
                         "title": JPUTitle,
                         "subtitle": JSS_URL
+                        "icon": JPUIcon
                     },
                     "sections": [
                         {
                             "widgets": [
                                 {
                                     "keyValue": {
-                                        "topLabel": "Title",
+                                        "topLabel": "Package",
                                         "content": pkg_name,
-                                        "icon": JPUIcon
                                     }
                                 },
                                 {
@@ -159,12 +151,6 @@ class HangoutsChatJPUNotifier(Processor):
                                     "keyValue": {
                                         "topLabel": "Category",
                                         "content": category
-                                    }
-                                },
-                                {
-                                    "keyValue": {
-                                        "topLabel": "Status",
-                                        "content": pkg_status
                                     }
                                 },
                                 {
@@ -186,8 +172,7 @@ class HangoutsChatJPUNotifier(Processor):
             ]
         }
 
-
-        if not ("Unchanged" in pkg_status) or should_report:
+        if should_report:
             response = requests.post(webhook_url, json=hangoutschat_data)
             if response.status_code != 200:
                 raise ValueError(
