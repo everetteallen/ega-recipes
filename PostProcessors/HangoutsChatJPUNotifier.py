@@ -130,7 +130,6 @@ class HangoutsChatJPUNotifier(Processor):
                     "header": {
                         "title": JPUTitle,
                         "subtitle": JSS_URL
-                        "icon": JPUIcon
                     },
                     "sections": [
                         {
@@ -139,6 +138,7 @@ class HangoutsChatJPUNotifier(Processor):
                                     "keyValue": {
                                         "topLabel": "Package",
                                         "content": pkg_name,
+                                        "icon": JPUIcon
                                     }
                                 },
                                 {
