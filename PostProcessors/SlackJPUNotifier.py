@@ -103,7 +103,7 @@ class SlackJPUNotifier(Processor):
             print("Ratio: %s" % ratio)    
                 
         slack_text = (
-            f"TimeStamp:*{pkg_date}*\n  *{JPUTitle}* *{JSS_URL}*\nTitle: *{pkg_name}*  Version: *{version}* Category: *{category}*\nVirus Total Result: *{ratio}*\n"
+            f"*{JPUTitle}* *{JSS_URL}*\nTitle: *{pkg_name}*  Version: *{version}* Category: *{category}*\nVirus Total Result: *{ratio}*     TimeStamp:*{pkg_date}*\n"
         )
 
         slack_data = {"text": slack_text}
