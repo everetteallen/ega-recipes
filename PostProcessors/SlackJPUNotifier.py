@@ -61,20 +61,12 @@ class SlackJPUNotifier(Processor):
         
         # JPU Summary
         try:
-            # jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
-            print("in try for summary")
             version = self.env.get("version")
-            print(version)
             category = self.env.get("pkg_category")
-            print(category)
             pkg_name = self.env.get("pkg_name")
-            print(pkg_name)
             pkg_path = self.env.get("pkg_path")
-            print(pkg_path)
-            # pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
             pkg_date = self.pkg_date
-            JPUTitle = "New Item Upload Attempt to JSS"
-            # JPUIcon = ":star:"  
+            JPUTitle = "New Item Upload Attempt to: " 
 
         except:
             # pkg_status = "unknown"
@@ -108,13 +100,8 @@ class SlackJPUNotifier(Processor):
         # print("Status: %s" % pkg_status)
         print("TimeStamp: %s" % pkg_date)    
                 
-        '''
         slack_text = (
-            f"*{JPUTitle}*\nURL:*{JSS_URL}*\n{JPUIcon} Title: *{pkg_name}*\nVersion: *{version}*\nCategory: *{category}*\nStatus: *{pkg_status}*\nVirus Total Result: *{ratio}*\nTimeStamp:*{pkg_date}*\n"
-        )
-        '''
-        slack_text = (
-            f"TimeStamp:*{pkg_date}*\n  *{JPUTitle}*\nTitle: *{pkg_name}*  Version: *{version}*\nCategory: *{category}*\nVirus Total Result: *{ratio}*\nURL:*{JSS_URL}*\n"
+            f"TimeStamp:*{pkg_date}*\n  *{JPUTitle}* *{JSS_URL}*\nTitle: *{pkg_name}*  Version: *{version}* Category: *{category}*\nVirus Total Result: *{ratio}*\n"
         )
 
         slack_data = {"text": slack_text}
