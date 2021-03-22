@@ -39,10 +39,6 @@ class SlackJPUNotifier(Processor):
         "JSS_URL": {"required": False, "description": ("JSS_URL.")},
         "category": {"required": False, "description": ("Package Category.")},
         "pkg_name": {"required": False, "description": ("Title (NAME)")},
-        "jamfpackageuploader_summary_result": {
-            "required": False,
-            "description": ("Description of interesting results."),
-        },
         "slackjpu_webhook_url": {"required": False, "description": ("Slack webhook.")},
         "slackjpu_always_report" : {"required": False, "description": ("Should report or not")},
     }
@@ -65,11 +61,11 @@ class SlackJPUNotifier(Processor):
         
         # JPU Summary
         try:
-            jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
-            version = jamfpackageuploader_summary_result["data"]["version"]
-            category = jamfpackageuploader_summary_result["data"]["category"]
-            pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
-            pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
+            # jamfpackageuploader_summary_result = self.env.get("jamfpackageuploader_summary_result")
+            version = self.env.get("version")
+            category = self.env.get("pkg_category")
+            pkg_name = self.env.get("pkg_name")
+            pkg_path = self.env.get("pkg_path")
             # pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
             pkg_date = self.pkg_date
             JPUTitle = "New Item Upload Attempt to JSS"
