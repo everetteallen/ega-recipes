@@ -70,10 +70,10 @@ class SlackJPUNotifier(Processor):
             category = jamfpackageuploader_summary_result["data"]["category"]
             pkg_name = jamfpackageuploader_summary_result["data"]["pkg_name"]
             pkg_path = jamfpackageuploader_summary_result["data"]["pkg_path"]
-            pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
+            # pkg_status = jamfpackageuploader_summary_result["data"]["pkg_status"]
             pkg_date = self.pkg_date
             JPUTitle = "New Item Upload Attempt to JSS"
-            JPUIcon = ":star:"  
+            # JPUIcon = ":star:"  
 
         except:
             pkg_status = "unknown"
@@ -82,9 +82,9 @@ class SlackJPUNotifier(Processor):
             pkg_name = "unknown"
             pkg_path = "unknown"
             pkg_date = self.pkg_date
-            pkg_status = "Error Processing Upload to JSS"
+            #pkg_status = "Error Processing Upload to JSS"
             JPUTitle = "Error Running JamfPackageUploader"
-            JPUIcon = ":alarm_clock:"
+            #JPUIcon = ":alarm_clock:"
 
                  
         # VirusTotal data if available
@@ -104,11 +104,15 @@ class SlackJPUNotifier(Processor):
         print("Path: %s" % pkg_path)
         print("Version: %s" % version)
         print("Category: %s" % category) 
-        print("Status: %s" % pkg_status)
+        # print("Status: %s" % pkg_status)
         print("TimeStamp: %s" % pkg_date)    
                 
-        slack_text = (
+        '''slack_text = (
             f"*{JPUTitle}*\nURL:*{JSS_URL}*\n{JPUIcon} Title: *{pkg_name}*\nVersion: *{version}*\nCategory: *{category}*\nStatus: *{pkg_status}*\nVirus Total Result: *{ratio}*\nTimeStamp:*{pkg_date}*\n"
+        )
+        '''
+        slack_text = (
+            f"TimeStamp:*{pkg_date}*\n  *{JPUTitle}*\nTitle: *{pkg_name}*  Version: *{version}*\nCategory: *{category}*\nVirus Total Result: *{ratio}*\nURL:*{JSS_URL}*\n"
         )
 
         slack_data = {"text": slack_text}
