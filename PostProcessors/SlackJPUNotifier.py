@@ -29,7 +29,7 @@ __all__ = ["SlackJPUNotifier"]
 
 class SlackJPUNotifier(Processor):
     description = (
-        "Posts to Slack via webhook based on output of a JamfPackageUploader run. "
+        "Posts to Slack via webhook based on output of an autopkg run to Jamf Pro. "
         "Takes elements from "
         "https://gist.github.com/devStepsize/b1b795309a217d24566dcc0ad136f784"
         "and "
@@ -49,6 +49,7 @@ class SlackJPUNotifier(Processor):
     def main(self):
         JSS_URL = self.env.get("JSS_URL")
         webhook_url = self.env.get("slackjpu_webhook_url")
+        bugged = False
         
         #get the local time 
         now = datetime.now()
@@ -90,15 +91,16 @@ class SlackJPUNotifier(Processor):
         except:
             ratio = "Not Checked"
         
-        # output so we can have sanity check
-        print("********SlackJPU Information Summary: ")
-        print("JSS address: %s" % JSS_URL)
-        print("Title: %s" % pkg_name)
-        print("Path: %s" % pkg_path)
-        print("Version: %s" % version)
-        print("Category: %s" % category) 
-        # print("Status: %s" % pkg_status)
-        print("TimeStamp: %s" % pkg_date)    
+        if bugged:
+            # output so we can have sanity check
+            print("********SlackJPU Information Summary: ")
+            print("JSS address: %s" % JSS_URL)
+            print("Title: %s" % pkg_name)
+            print("Path: %s" % pkg_path)
+            print("Version: %s" % version)
+            print("Category: %s" % category) 
+            print("TimeStamp: %s" % pkg_date)
+            print("Ratio: %s" % ratio)    
                 
         slack_text = (
             f"TimeStamp:*{pkg_date}*\n  *{JPUTitle}* *{JSS_URL}*\nTitle: *{pkg_name}*  Version: *{version}* Category: *{category}*\nVirus Total Result: *{ratio}*\n"
