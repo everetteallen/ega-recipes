@@ -84,6 +84,8 @@ class HangoutsChatJPUNotifier(Processor):
         except:
             should_report = False
         
+        if "jamfpackageuploader_summary_result" not in self.env:
+            should_report = False
         # JPU Summary
         try:
             version = self.env.get("version")
@@ -172,7 +174,7 @@ class HangoutsChatJPUNotifier(Processor):
             ]
         }
 
-        if should_report:
+        if should_report and pkg_name and pkg_name != "unknown":
             response = requests.post(webhook_url, json=hangoutschat_data)
             if response.status_code != 200:
                 raise ValueError(
