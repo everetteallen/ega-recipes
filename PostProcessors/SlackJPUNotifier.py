@@ -60,8 +60,8 @@ class SlackJPUNotifier(Processor):
         except:
             should_report = False
             
-         if "jamfpackageuploader_summary_result" not in self.env:
-             should_report = False
+        if "jamfpackageuploader_summary_result" not in self.env:
+            should_report = False
         
         # JPU Summary
         try:
