@@ -109,7 +109,7 @@ class SlackJPUNotifier(Processor):
         slack_data = {"text": slack_text}
         
         # Only report if slackjpu_should_report is set to true and there is something to report
-        if should_report && pkg_name && pkg_name != "unknown":
+        if should_report and pkg_name and pkg_name != "unknown":
 
             response = requests.post(webhook_url, json=slack_data)
             if response.status_code != 200:
