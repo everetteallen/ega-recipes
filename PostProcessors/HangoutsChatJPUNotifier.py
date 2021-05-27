@@ -106,7 +106,6 @@ class HangoutsChatJPUNotifier(Processor):
             pkg_date = self.pkg_date
             JPUTitle = "Error Uploading To: "
             JPUIcon = "DESCRIPTION"
-    
             
         # VirusTotal data 
         # set VIRUSTOTAL_ALWAYS_REPORT to true to report even if no new package
@@ -130,55 +129,7 @@ class HangoutsChatJPUNotifier(Processor):
         if bugged:
             print(text)
         hangoutschat_data= {'text':text}
-        ''' 
-        hangoutschat_data = {
-            "cards": [
-                {
-                    "header": {
-                        "title": JPUTitle,
-                        "subtitle": JSS_URL
-                    },
-                    "sections": [
-                        {
-                            "widgets": [
-                                {
-                                    "keyValue": {
-                                        "topLabel": "Package",
-                                        "content": pkg_name,
-                                        "icon": JPUIcon
-                                    }
-                                },
-                                {
-                                    "keyValue": {
-                                        "topLabel": "Version",
-                                        "content": version
-                                    }
-                                },
-                                {
-                                    "keyValue": {
-                                        "topLabel": "Category",
-                                        "content": category
-                                    }
-                                },
-                                {
-                                    "keyValue": {
-                                        "topLabel": "Virus Total Result",
-                                        "content": ratio
-                                    }
-                                },
-                                {
-                                    "keyValue": {
-                                        "topLabel": "TimeStamp",
-                                        "content": pkg_date
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    '''
+
 
         if should_report and pkg_name and pkg_name != "unknown":
             response = requests.post(webhook_url, json=hangoutschat_data)
