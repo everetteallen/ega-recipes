@@ -125,7 +125,7 @@ class HangoutsChatJPUNotifier(Processor):
             print("Category: %s" % category)
             print("TimeStamp: %s" % pkg_date)
         
-        text = f'{JPUTitle} {JSS_URL}\n {pkg_name} {version} \n Category {category}\n {pkg_date}'
+        text = f'{JPUTitle} {JSS_URL}\nDate:{pkg_date} \n {pkg_name} \nVersion: {version} \n Category: {category}\nVirus Total Score: {ratio} '
         if bugged:
             print(text)
         hangoutschat_data= {'text':text}
