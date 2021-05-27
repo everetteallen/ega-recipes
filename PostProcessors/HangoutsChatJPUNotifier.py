@@ -89,7 +89,7 @@ class HangoutsChatJPUNotifier(Processor):
         # JPU Summary
         try:
             version = self.env.get("version")
-            category = self.env.get("pkg_category")
+            category = self.env.get("category")
             pkg_name = self.env.get("pkg_name")
             pkg_path = self.env.get("pkg_path")
             pkg_date = self.pkg_date
