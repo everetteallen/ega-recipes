@@ -126,6 +126,11 @@ class HangoutsChatJPUNotifier(Processor):
             print("Category: %s" % category)
             print("TimeStamp: %s" % pkg_date)
        
+       text = f'{JPUTitle} {JSS_URL}\n {pkg_name} {version} \n Category {category}\n {pkg_date}
+       if bugged:
+           print(text)
+       hangoutschat_data= {'text':text}
+       ''' 
         hangoutschat_data = {
             "cards": [
                 {
@@ -173,6 +178,7 @@ class HangoutsChatJPUNotifier(Processor):
                 }
             ]
         }
+    '''
 
         if should_report and pkg_name and pkg_name != "unknown":
             response = requests.post(webhook_url, json=hangoutschat_data)
