@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Sets pkg_path to an installer package for further processing. Intended to take place of a .downloads recipe when custom in house packages or paywall packages are used. Override this recipe for each package.</string>
+    <string>Sets pkg_path to an installer package for further processing. Intended to take place of a .downloads recipe when custom in house packages or paywall packages are placed at a path. Override this recipe for each package.</string>
     <key>Identifier</key>
     <string>com.github.ega-recipes.path.PkgPath</string>
     <key>Input</key>
@@ -13,8 +13,6 @@
         <key>pkg_path</key>
         <string>/path/to/some.pkg</string>
     </dict>
-    <key>MinimumVersion</key>
-	<string>0.2.0</string>
     <key>Process</key>
 	<array>
 	</array>
