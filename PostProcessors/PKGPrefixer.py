@@ -58,6 +58,11 @@ class PKGPrefixer(Processor):
         "pkg_name": {
             "description": "The name of the prefixed package."
         },
+        "pkg_name_match": {
+            "description": "The name at the beginning of the package. "
+            "This is used as a base for cleaning. "
+            "The default value is '%NAME%-'."
+        },
         "pkg_prefixer_summary_result": {
             "description": "Description of interesting results.",
         },
@@ -103,12 +108,15 @@ class PKGPrefixer(Processor):
          # output the summary
         self.env["pkg_name"] = self.pkg_name
         self.env["pkg_path"] = self.prefix_path
+        # set the PKG Name Match for JamfPackageCleaner
+        self.env["pkg_name_match"] = self.pkg_prefix + self.env.get('NAME') + "-"
         self.env["pkg_prefixer_summary_result"] = {
             "summary_text": "The following package was renamed:",
-            "report_fields": ["pkg_path", "pkg_name"],
+            "report_fields": ["pkg_path", "pkg_name", "pkg_name_match"],
             "data": {
                 "pkg_path": self.pkg_path,
                 "pkg_name": self.pkg_name,
+                "pkg_name_match": self.pkg_name_match,
             },
         }
 
