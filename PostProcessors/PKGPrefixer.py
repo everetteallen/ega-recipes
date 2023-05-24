@@ -116,7 +116,7 @@ class PKGPrefixer(Processor):
             "data": {
                 "pkg_path": self.pkg_path,
                 "pkg_name": self.pkg_name,
-                "pkg_name_match": self.pkg_name_match,
+                "pkg_name_match": self.env["pkg_name_match"],
             },
         }
 
