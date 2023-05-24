@@ -106,10 +106,10 @@ class PKGPrefixer(Processor):
             pass
         
          # output the summary
+         # added set the PKG Name Match for JamfPackageCleaner
         self.env["pkg_name"] = self.pkg_name
         self.env["pkg_path"] = self.prefix_path
-        # set the PKG Name Match for JamfPackageCleaner
-        self.env["pkg_name_match"] = self.pkg_prefix + self.env.get('NAME') + "-"
+        self.env["pkg_name_match"] = f"{self.pkg_prefix}{self.env.get('NAME')}-"
         self.env["pkg_prefixer_summary_result"] = {
             "summary_text": "The following package was renamed:",
             "report_fields": ["pkg_path", "pkg_name", "pkg_name_match"],
