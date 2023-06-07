@@ -5,11 +5,11 @@
     <key>Description</key>
     <string>Sets required input variables for a package</string>
     <key>Identifier</key>
-    <string>edu.ncsu.ega.name.chrome</string>
+    <string>edu.ncsu.ega.name.zoom</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>UNCWide-AutoPKG-Google Chrome</string>
+        <string>UNCWide-AutoPKG-Zoom</string>
     </dict>
     <key>Process</key>
     <array>
