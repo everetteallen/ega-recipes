@@ -9,7 +9,7 @@
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>UNCWide-AutoPkg-GoogleChrome-Universal</string>
+        <string>UNCWide-AutoPkg-GoogleChrome</string>
     </dict>
     <key>Process</key>
     <array>
