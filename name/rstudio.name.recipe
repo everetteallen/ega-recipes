@@ -9,7 +9,7 @@
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>UNCWide-AutoPKG-RStudio</string>
+        <string>UNCWide-AutoPkg-RStudio</string>
     </dict>
     <key>Process</key>
     <array>
