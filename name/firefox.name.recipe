@@ -9,7 +9,7 @@
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>UNCWide-AutoPKG-Firefox</string>
+        <string>UNCWide-AutoPkg-Mozilla-Firefox</string>
     </dict>
     <key>Process</key>
     <array>
