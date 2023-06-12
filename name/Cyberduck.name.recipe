@@ -5,7 +5,7 @@
     <key>Description</key>
     <string>Sets required input variables for a package</string>
     <key>Identifier</key>
-    <string>edu.ncsu.ega.name.cyberduck</string>
+    <string>edu.ncsu.ega.name.chrome</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
